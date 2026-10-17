@@ -3,6 +3,7 @@ from datetime import date
 from agents import Agent
 
 from src.config import get_model
+from src.guardrails.guards import input_safety_guardrail
 from src.schemas import ClaimFacts
 
 intake_agent = Agent(
@@ -23,4 +24,5 @@ intake_agent = Agent(
     ),
     model=get_model(),
     output_type=ClaimFacts,
+    input_guardrails=[input_safety_guardrail],
 )
