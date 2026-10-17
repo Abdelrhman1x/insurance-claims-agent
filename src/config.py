@@ -11,13 +11,17 @@ from openai import (
     InternalServerError,
     RateLimitError,
 )
-from agents import Model, OpenAIChatCompletionsModel, set_tracing_disabled
+from agents import Model, OpenAIChatCompletionsModel
+
+from src.tracing_setup import setup_tracing
 
 load_dotenv()
-set_tracing_disabled(True)  # مؤقتًا، هنعمل tracing بتاعنا بعدين
+setup_tracing()  # مؤقتًا، هنعمل tracing بتاعنا بعدين
 
 log = logging.getLogger("llm")
 logging.basicConfig(level=logging.INFO)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpx2").setLevel(logging.WARNING)
 
 PROVIDERS = {
     "groq": {
